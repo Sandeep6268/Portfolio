@@ -249,6 +249,31 @@ const App = () => {
   };
 
   return (
+    <>
+    {/* 3D Model Background - Now fixed */}
+        <motion.div
+          className="hero-image-fixed"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.7 }}
+          transition={{ duration: 1 }}
+        >
+          <Canvas>
+            <ambientLight intensity={0.5} />
+            <pointLight position={[10, 10, 10]} intensity={1} />
+            <pointLight position={[-10, -10, -10]} intensity={0.5} />
+            {darkMode && (
+              <Stars radius={100} depth={50} count={5000} factor={4} />
+            )}
+            <OrbitControls
+              enableZoom={false}
+              autoRotate
+              autoRotateSpeed={darkMode ? 1 : 2}
+              enablePan={false}
+            />
+            <AnimatedSphere />
+          </Canvas>
+          <div className="glow-effect"></div>
+        </motion.div>
     <div className={`portfolio ${darkMode ? "dark" : "light"}`}>
       {/* Theme Toggle */}
       <motion.button
@@ -286,54 +311,40 @@ const App = () => {
 
       {/* Hero Section */}
       <section id="home" className="hero" ref={heroRef}>
-  <div className="hero-content">
-    <div className="hero-text">
-      <h2>Building Digital Experiences That Matter</h2>
-      <p>
-        I specialize in creating responsive, performant web applications with modern technologies. 
-        With 4+ years of experience, I bring both technical expertise and creative problem-solving 
-        to every project.
-      </p>
-      <div className="hero-stats">
-        <div className="stat">
-          <span className="stat-number" data-target="50">0</span>
-          <span className="stat-label">Projects</span>
+        
+
+        <div className="hero-content">
+          <div className="hero-text">
+            <h2>Building Digital Experiences That Matter</h2>
+            <p>
+              I specialize in creating responsive, performant web applications
+              with modern technologies. With 4+ years of experience, I bring
+              both technical expertise and creative problem-solving to every
+              project.
+            </p>
+            <div className="hero-stats">
+              <div className="stat">
+                <span className="stat-number" data-target="50">
+                  0
+                </span>
+                <span className="stat-label">Projects</span>
+              </div>
+              <div className="stat">
+                <span className="stat-number" data-target="20">
+                  0
+                </span>
+                <span className="stat-label">Clients</span>
+              </div>
+              <div className="stat">
+                <span className="stat-number" data-target="4">
+                  0
+                </span>
+                <span className="stat-label">Years Exp</span>
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="stat">
-          <span className="stat-number" data-target="20">0</span>
-          <span className="stat-label">Clients</span>
-        </div>
-        <div className="stat">
-          <span className="stat-number" data-target="4">0</span>
-          <span className="stat-label">Years Exp</span>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  {/* 3D Model Background */}
-  <motion.div
-    className="hero-image"
-    initial={{ opacity: 0 }}
-    animate={{ opacity: 0.7 }}
-    transition={{ duration: 1 }}
-  >
-    <Canvas>
-      <ambientLight intensity={0.5} />
-      <pointLight position={[10, 10, 10]} intensity={1} />
-      <pointLight position={[-10, -10, -10]} intensity={0.5} />
-      {darkMode && <Stars radius={100} depth={50} count={5000} factor={4} />}
-      <OrbitControls 
-        enableZoom={false} 
-        autoRotate 
-        autoRotateSpeed={darkMode ? 1 : 2}
-        enablePan={false}
-      />
-      <AnimatedSphere />
-    </Canvas>
-    <div className="glow-effect"></div>
-  </motion.div>
-</section>
+      </section>
 
       {/* Projects Section */}
       <section id="projects" className="projects-section">
@@ -486,6 +497,7 @@ const App = () => {
         ↑
       </motion.button>
     </div>
+    </>
   );
 };
 
