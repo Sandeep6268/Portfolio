@@ -276,7 +276,7 @@ const App = () => {
         </motion.div>
     <div className={`portfolio ${darkMode ? "dark" : "light"}`}>
       {/* Theme Toggle */}
-      <motion.button
+      {/* <motion.button
         className="theme-toggle"
         onClick={toggleTheme}
         whileHover={{ scale: 1.1, rotate: darkMode ? 0 : 180 }}
@@ -287,7 +287,7 @@ const App = () => {
         aria-label={darkMode ? "Switch to light mode" : "Switch to dark mode"}
       >
         {darkMode ? <FiSun size={20} /> : <FiMoon size={20} />}
-      </motion.button>
+      </motion.button> */}
 
       {/* Header */}
       <motion.header
