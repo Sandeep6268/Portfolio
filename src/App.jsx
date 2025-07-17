@@ -506,9 +506,72 @@ const skills = [
   );
 };
 
+
+const SuccessModal = ({ onClose, darkMode }) => {
+  const modalRef = useRef();
+
+  // Close modal when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (modalRef.current && !modalRef.current.contains(event.target)) {
+        onClose();
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [onClose]);
+
+  return (
+    <motion.div
+      className="modal-overlay"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.3 }}
+    >
+      <motion.div
+        ref={modalRef}
+        className={`success-modal ${darkMode ? "dark" : "light"}`}
+        initial={{ scale: 0.8, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.8, opacity: 0 }}
+        transition={{ type: "spring", damping: 20, stiffness: 300 }}
+      >
+        <div className="modal-icon">
+          <svg viewBox="0 0 24 24">
+            <motion.path
+              fill="none"
+              strokeWidth="2"
+              stroke={darkMode ? "#8189ff" : "#646cff"}
+              strokeLinecap="round"
+              d="M5 13l4 4L19 7"
+              initial={{ pathLength: 0 }}
+              animate={{ pathLength: 1 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            />
+          </svg>
+        </div>
+        <h3>Message Sent Successfully!</h3>
+        <p>Thank you for reaching out. I'll get back to you soon.</p>
+        <motion.button
+          onClick={onClose}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className="modal-close-btn"
+        >
+          Close
+        </motion.button>
+      </motion.div>
+    </motion.div>
+  );
+};
+
+
 // ContactForm component
 const ContactForm = ({ darkMode }) => {
   const form = useRef();
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   const sendEmail = (e) => {
     e.preventDefault();
@@ -520,7 +583,7 @@ const ContactForm = ({ darkMode }) => {
         "8aGWUKjK04lqgNpwK"
       )
       .then(() => {
-        alert("Message sent successfully!");
+        setShowSuccessModal(true);
         form.current.reset();
       })
       .catch(() => {
@@ -529,6 +592,7 @@ const ContactForm = ({ darkMode }) => {
   };
 
   return (
+    <>
     <motion.form
       ref={form}
       onSubmit={sendEmail}
@@ -558,6 +622,12 @@ const ContactForm = ({ darkMode }) => {
         Send Message
       </motion.button>
     </motion.form>
+    <AnimatePresence>
+        {showSuccessModal && (
+          <SuccessModal onClose={() => setShowSuccessModal(false)} darkMode={darkMode} />
+        )}
+      </AnimatePresence>
+      </>
   );
 };
 
