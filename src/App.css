@@ -206,13 +206,13 @@ header h1 {
 }
 
 .hero-text {
-  background: rgba(var(--card-bg), 0.8);
-  backdrop-filter: blur(10px);
+  /* background: rgba(var(--card-bg), 0.8); */
+  /* backdrop-filter: blur(10px); */
   padding: 2rem;
   border-radius: 15px;
   max-width: 600px;
-  border: 1px solid var(--border);
-  box-shadow: 0 10px 30px var(--shadow);
+  /* border: 1px solid var(--border); */
+  /* box-shadow: 0 10px 30px var(--shadow); */
 }
 
 .glow-effect {
