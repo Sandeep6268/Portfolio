@@ -1,31 +1,45 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { FiGithub, FiExternalLink, FiMail, FiLinkedin, FiInstagram, FiSun, FiMoon, FiUser, FiCode, FiBriefcase, FiMessageSquare } from 'react-icons/fi';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, Sphere, Stars } from '@react-three/drei';
-import gsap from 'gsap';
-import emailjs from 'emailjs-com';
-import './App.css';
+import React, { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  FiGithub,
+  FiExternalLink,
+  FiMail,
+  FiLinkedin,
+  FiInstagram,
+  FiSun,
+  FiMoon,
+  FiUser,
+  FiCode,
+  FiBriefcase,
+  FiMessageSquare,
+} from "react-icons/fi";
+import { Canvas, useFrame } from "@react-three/fiber";
+import { OrbitControls, Sphere, Stars } from "@react-three/drei";
+import gsap from "gsap";
+import emailjs from "emailjs-com";
+import "./App.css";
 
 const App = () => {
   const [darkMode, setDarkMode] = useState(false);
   const [mounted, setMounted] = useState(false);
-  const [activeSection, setActiveSection] = useState('home');
+  const [activeSection, setActiveSection] = useState("home");
   const heroRef = useRef(null);
   const sphereRef = useRef();
 
   // Initialize theme
   useEffect(() => {
     setMounted(true);
-    const savedTheme = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    
+    const savedTheme = localStorage.getItem("theme");
+    const prefersDark = window.matchMedia(
+      "(prefers-color-scheme: dark)"
+    ).matches;
+
     if (savedTheme) {
-      setDarkMode(savedTheme === 'dark');
-      document.body.className = savedTheme + '-mode';
+      setDarkMode(savedTheme === "dark");
+      document.body.className = savedTheme + "-mode";
     } else {
       setDarkMode(prefersDark);
-      document.body.className = prefersDark ? 'dark-mode' : 'light-mode';
+      document.body.className = prefersDark ? "dark-mode" : "light-mode";
     }
   }, []);
 
@@ -33,8 +47,8 @@ const App = () => {
   const toggleTheme = () => {
     const newMode = !darkMode;
     setDarkMode(newMode);
-    document.body.className = newMode ? 'dark-mode' : 'light-mode';
-    localStorage.setItem('theme', newMode ? 'dark' : 'light');
+    document.body.className = newMode ? "dark-mode" : "light-mode";
+    localStorage.setItem("theme", newMode ? "dark" : "light");
   };
 
   // Skills data
@@ -57,7 +71,7 @@ const App = () => {
       y: 50,
       opacity: 0,
       ease: "power3.out",
-      delay: 0.3
+      delay: 0.3,
     });
 
     gsap.from(".hero-text p", {
@@ -65,17 +79,17 @@ const App = () => {
       y: 50,
       opacity: 0,
       ease: "power3.out",
-      delay: 0.5
+      delay: 0.5,
     });
 
     // Stats counter animation
-    const statNumbers = document.querySelectorAll('.stat-number');
-    statNumbers.forEach(el => {
-      const target = parseInt(el.getAttribute('data-target'));
+    const statNumbers = document.querySelectorAll(".stat-number");
+    statNumbers.forEach((el) => {
+      const target = parseInt(el.getAttribute("data-target"));
       let count = 0;
       const duration = 2000;
       const increment = target / (duration / 16);
-      
+
       const updateCount = () => {
         count += increment;
         if (count < target) {
@@ -85,22 +99,22 @@ const App = () => {
           el.textContent = target;
         }
       };
-      
+
       updateCount();
     });
 
     // Scroll animations
-    const sections = document.querySelectorAll('section');
-    sections.forEach(section => {
+    const sections = document.querySelectorAll("section");
+    sections.forEach((section) => {
       gsap.from(section, {
         scrollTrigger: {
           trigger: section,
           start: "top 80%",
-          toggleActions: "play none none none"
+          toggleActions: "play none none none",
         },
         opacity: 0,
         y: 50,
-        duration: 1
+        duration: 1,
       });
     });
   }, [mounted]);
@@ -108,21 +122,24 @@ const App = () => {
   // Scroll spy effect
   useEffect(() => {
     const handleScroll = () => {
-      const sections = document.querySelectorAll('section');
+      const sections = document.querySelectorAll("section");
       const scrollPosition = window.scrollY + 200;
 
-      sections.forEach(section => {
+      sections.forEach((section) => {
         const sectionTop = section.offsetTop;
         const sectionHeight = section.offsetHeight;
 
-        if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+        if (
+          scrollPosition >= sectionTop &&
+          scrollPosition < sectionTop + sectionHeight
+        ) {
           setActiveSection(section.id);
         }
       });
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   // Projects data
@@ -133,13 +150,14 @@ const App = () => {
       tech: ["React", "Node.js", "Stripe", "MongoDB"],
       github: "https://github.com/Sandeep6268/ecco-font",
       live: "https://ecco-font.vercel.app/",
-      image: "https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+      image:
+        "https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
       features: [
         "Product catalog with filters",
         "Secure payment processing",
         "User authentication",
-        "Order tracking"
-      ]
+        "Order tracking",
+      ],
     },
     {
       title: "Task Management App",
@@ -147,13 +165,14 @@ const App = () => {
       tech: ["React", "Firebase", "Material UI", "Redux"],
       github: "#",
       live: "#",
-      image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      image:
+        "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
       features: [
         "Drag and drop interface",
         "Real-time collaboration",
         "Task prioritization",
-        "Progress tracking"
-      ]
+        "Progress tracking",
+      ],
     },
     {
       title: "Portfolio Website",
@@ -161,14 +180,15 @@ const App = () => {
       tech: ["React", "Three.js", "Framer Motion", "CSS3"],
       github: "#",
       live: "#",
-      image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+      image:
+        "https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
       features: [
         "3D interactive elements",
         "Dark/light mode",
         "Responsive design",
-        "Micro-interactions"
-      ]
-    }
+        "Micro-interactions",
+      ],
+    },
   ];
 
   // FloatingNav component
@@ -177,11 +197,11 @@ const App = () => {
       { icon: <FiUser />, label: "About", href: "#home" },
       { icon: <FiCode />, label: "Skills", href: "#skills" },
       { icon: <FiBriefcase />, label: "Work", href: "#projects" },
-      { icon: <FiMessageSquare />, label: "Contact", href: "#contact" }
+      { icon: <FiMessageSquare />, label: "Contact", href: "#contact" },
     ];
 
     return (
-      <motion.nav 
+      <motion.nav
         className="floating-nav"
         initial={{ opacity: 0, x: 50 }}
         animate={{ opacity: 1, x: 0 }}
@@ -191,7 +211,9 @@ const App = () => {
           <motion.a
             key={index}
             href={item.href}
-            className={`nav-item ${activeSection === item.href.substring(1) ? 'active' : ''}`}
+            className={`nav-item ${
+              activeSection === item.href.substring(1) ? "active" : ""
+            }`}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             aria-label={item.label}
@@ -215,19 +237,19 @@ const App = () => {
 
     return (
       <Sphere args={[1, 32, 32]} ref={sphereRef}>
-        <meshStandardMaterial 
-          color={darkMode ? "#8189ff" : "#646cff"} 
-          roughness={0.2} 
-          metalness={0.7}
-          emissive={darkMode ? "#3a3f8f" : "#3a3f8f"}
-          emissiveIntensity={0.5}
+        <meshStandardMaterial
+          color={darkMode ? "#8189ff" : "#646cff"}
+          roughness={0.2}
+          metalness={darkMode ? 0.7 : 0.3}
+          emissive={darkMode ? "#3a3f8f" : "#a3a8ff"}
+          emissiveIntensity={darkMode ? 0.5 : 0.2}
         />
       </Sphere>
     );
   };
 
   return (
-    <div className={`portfolio ${darkMode ? 'dark' : 'light'}`}>
+    <div className={`portfolio ${darkMode ? "dark" : "light"}`}>
       {/* Theme Toggle */}
       <motion.button
         className="theme-toggle"
@@ -249,7 +271,7 @@ const App = () => {
         transition={{ duration: 0.8 }}
       >
         <h1>Sandeep Singh Khicchi</h1>
-        <motion.p 
+        <motion.p
           className="subtitle"
           initial={{ opacity: 0 }}
           animate={{ opacity: 0.8 }}
@@ -264,54 +286,61 @@ const App = () => {
 
       {/* Hero Section */}
       <section id="home" className="hero" ref={heroRef}>
-        <div className="hero-content">
-          <motion.div
-            className="hero-image"
-            initial={{ scale: 0.8 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 1 }}
-          >
-            <Canvas>
-              <ambientLight intensity={0.5} />
-              <pointLight position={[10, 10, 10]} intensity={1} />
-              <pointLight position={[-10, -10, -10]} intensity={0.5} />
-              {darkMode && <Stars radius={100} depth={50} count={5000} factor={4} />}
-              <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={darkMode ? 1 : 2} />
-              <AnimatedSphere />
-            </Canvas>
-            <div className="glow-effect"></div>
-          </motion.div>
-          <div className="hero-text">
-            <h2>Building Digital Experiences That Matter</h2>
-            <p>
-              I specialize in creating responsive, performant web applications with modern technologies. 
-              With 4+ years of experience, I bring both technical expertise and creative problem-solving 
-              to every project.
-            </p>
-            <div className="hero-stats">
-              <div className="stat">
-                <span className="stat-number" data-target="50">0</span>
-                <span className="stat-label">Projects</span>
-              </div>
-              <div className="stat">
-                <span className="stat-number" data-target="20">0</span>
-                <span className="stat-label">Clients</span>
-              </div>
-              <div className="stat">
-                <span className="stat-number" data-target="4">0</span>
-                <span className="stat-label">Years Exp</span>
-              </div>
-            </div>
-          </div>
+  <div className="hero-content">
+    <div className="hero-text">
+      <h2>Building Digital Experiences That Matter</h2>
+      <p>
+        I specialize in creating responsive, performant web applications with modern technologies. 
+        With 4+ years of experience, I bring both technical expertise and creative problem-solving 
+        to every project.
+      </p>
+      <div className="hero-stats">
+        <div className="stat">
+          <span className="stat-number" data-target="50">0</span>
+          <span className="stat-label">Projects</span>
         </div>
-      </section>
+        <div className="stat">
+          <span className="stat-number" data-target="20">0</span>
+          <span className="stat-label">Clients</span>
+        </div>
+        <div className="stat">
+          <span className="stat-number" data-target="4">0</span>
+          <span className="stat-label">Years Exp</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  {/* 3D Model Background */}
+  <motion.div
+    className="hero-image"
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 0.7 }}
+    transition={{ duration: 1 }}
+  >
+    <Canvas>
+      <ambientLight intensity={0.5} />
+      <pointLight position={[10, 10, 10]} intensity={1} />
+      <pointLight position={[-10, -10, -10]} intensity={0.5} />
+      {darkMode && <Stars radius={100} depth={50} count={5000} factor={4} />}
+      <OrbitControls 
+        enableZoom={false} 
+        autoRotate 
+        autoRotateSpeed={darkMode ? 1 : 2}
+        enablePan={false}
+      />
+      <AnimatedSphere />
+    </Canvas>
+    <div className="glow-effect"></div>
+  </motion.div>
+</section>
 
       {/* Projects Section */}
       <section id="projects" className="projects-section">
         <h2 className="section-title">Featured Work</h2>
         <div className="projects-grid">
           {projects.map((project, index) => (
-            <motion.div 
+            <motion.div
               key={project.title}
               className="project-card"
               initial={{ opacity: 0, y: 50 }}
@@ -320,15 +349,26 @@ const App = () => {
               transition={{ delay: index * 0.1 + 0.3 }}
               whileHover={{ y: -10 }}
             >
-              <div className="project-image" style={{ backgroundImage: `url(${project.image})` }}>
+              <div
+                className="project-image"
+                style={{ backgroundImage: `url(${project.image})` }}
+              >
                 <div className="project-links">
                   {project.github && (
-                    <a href={project.github} target="_blank" rel="noopener noreferrer">
+                    <a
+                      href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       <FiGithub />
                     </a>
                   )}
                   {project.live && (
-                    <a href={project.live} target="_blank" rel="noopener noreferrer">
+                    <a
+                      href={project.live}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       <FiExternalLink />
                     </a>
                   )}
@@ -346,7 +386,7 @@ const App = () => {
                   </ul>
                 </div>
                 <div className="tech-tags">
-                  {project.tech.map(tech => (
+                  {project.tech.map((tech) => (
                     <span key={tech}>{tech}</span>
                   ))}
                 </div>
@@ -360,8 +400,8 @@ const App = () => {
       <section id="skills" className="skills-section">
         <h2 className="section-title">Tech Stack</h2>
         <div className="skills-grid">
-          {skills.map(skill => (
-            <motion.div 
+          {skills.map((skill) => (
+            <motion.div
               key={skill.name}
               className="skill-item"
               whileHover={{ scale: 1.05 }}
@@ -374,7 +414,7 @@ const App = () => {
               <div className="skill-info">
                 <h4>{skill.name}</h4>
                 <div className="skill-bar">
-                  <motion.div 
+                  <motion.div
                     className="skill-progress"
                     initial={{ width: 0 }}
                     whileInView={{ width: `${skill.level}%` }}
@@ -395,19 +435,35 @@ const App = () => {
         <div className="contact-container">
           <div className="contact-info">
             <h3>Let's work together</h3>
-            <p>I'm currently available for freelance work or full-time positions. Feel free to reach out for project discussions or just to say hello!</p>
+            <p>
+              I'm currently available for freelance work or full-time positions.
+              Feel free to reach out for project discussions or just to say
+              hello!
+            </p>
             <div className="contact-details">
               <a href="mailto:sandeepsinghkhicchi@gmail.com">
                 <FiMail /> sandeepsinghkhicchi@gmail.com
               </a>
               <div className="social-links">
-                <a href="http://linkedin.com/in/sandeep-singh-khicchi-70440b2a5" target="_blank" rel="noopener noreferrer">
+                <a
+                  href="http://linkedin.com/in/sandeep-singh-khicchi-70440b2a5"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <FiLinkedin />
                 </a>
-                <a href="https://www.instagram.com/sandybannarajput/" target="_blank" rel="noopener noreferrer">
+                <a
+                  href="https://www.instagram.com/sandybannarajput/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <FiInstagram />
                 </a>
-                <a href="https://github.com/Sandeep6268" target="_blank" rel="noopener noreferrer">
+                <a
+                  href="https://github.com/Sandeep6268"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <FiGithub />
                 </a>
               </div>
@@ -420,7 +476,7 @@ const App = () => {
       {/* Back to Top Button */}
       <motion.button
         className="back-to-top"
-        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
         initial={{ opacity: 0 }}
@@ -439,24 +495,25 @@ const ContactForm = ({ darkMode }) => {
 
   const sendEmail = (e) => {
     e.preventDefault();
-    emailjs.sendForm(
-      'service_bo02hid',
-      'template_lh2le35',
-      form.current,
-      '8aGWUKjK04lqgNpwK'
-    )
-    .then(() => {
-      alert('Message sent successfully!');
-      form.current.reset();
-    })
-    .catch(() => {
-      alert('Failed to send message. Please try again.');
-    });
+    emailjs
+      .sendForm(
+        "service_bo02hid",
+        "template_lh2le35",
+        form.current,
+        "8aGWUKjK04lqgNpwK"
+      )
+      .then(() => {
+        alert("Message sent successfully!");
+        form.current.reset();
+      })
+      .catch(() => {
+        alert("Failed to send message. Please try again.");
+      });
   };
 
   return (
-    <motion.form 
-      ref={form} 
+    <motion.form
+      ref={form}
       onSubmit={sendEmail}
       className="contact-form"
       initial={{ opacity: 0, y: 50 }}
@@ -476,7 +533,7 @@ const ContactForm = ({ darkMode }) => {
       <div className="form-group">
         <textarea name="message" placeholder="Your Message" required></textarea>
       </div>
-      <motion.button 
+      <motion.button
         type="submit"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
