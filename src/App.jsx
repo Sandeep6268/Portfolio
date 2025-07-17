@@ -6,8 +6,6 @@ import {
   FiMail,
   FiLinkedin,
   FiInstagram,
-  FiSun,
-  FiMoon,
   FiUser,
   FiCode,
   FiBriefcase,
@@ -52,14 +50,21 @@ const App = () => {
   };
 
   // Skills data
-  const skills = [
-    { name: "JavaScript", icon: <FiCode />, level: 90 },
-    { name: "React", icon: <FiCode />, level: 85 },
-    { name: "Node.js", icon: <FiCode />, level: 80 },
-    { name: "HTML/CSS", icon: <FiCode />, level: 95 },
-    { name: "TypeScript", icon: <FiCode />, level: 75 },
-    { name: "Git", icon: <FiCode />, level: 85 },
-  ];
+  // Updated skills data in the App component
+const skills = [
+  { name: "HTML5", icon: <FiCode />, level: 95 },
+  { name: "CSS3", icon: <FiCode />, level: 90 },
+  { name: "JavaScript", icon: <FiCode />, level: 90 },
+  { name: "React js", icon: <FiCode />, level: 85 },
+  { name: "Bootstrap", icon: <FiCode />, level: 80 },
+  { name: "Python", icon: <FiCode />, level: 80 },
+  { name: "Django", icon: <FiCode />, level: 75 },
+  { name: "SQL", icon: <FiCode />, level: 80 },
+  { name: "Next.js", icon: <FiCode />, level: 70 },
+  { name: "Firebase", icon: <FiCode />, level: 75 },
+  { name: "Razorpay", icon: <FiCode />, level: 70 },
+  { name: "Git", icon: <FiCode />, level: 85 },
+];
 
   // Animation effects
   useEffect(() => {
