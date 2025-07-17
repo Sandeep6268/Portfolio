@@ -14,7 +14,7 @@
   --transition: all 0.3s ease;
 }
 
-.dark {
+.dark-mode {
   --primary: #8189ff;
   --primary-light: #9ca2ff;
   --secondary: #6a73ff;
@@ -27,6 +27,19 @@
   --shadow: rgba(0, 0, 0, 0.3);
   --shadow-lg: rgba(0, 0, 0, 0.5);
 }
+
+/* Apply dark mode to body */
+body.dark-mode {
+  background-color: var(--bg);
+  color: var(--text);
+}
+
+body.light-mode {
+  background-color: var(--bg);
+  color: var(--text);
+}
+
+/* Rest of your CSS remains the same... */
 
 /* Base Styles */
 * {

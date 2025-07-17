@@ -5,7 +5,6 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, Sphere, Stars } from '@react-three/drei';
 import gsap from 'gsap';
 import emailjs from 'emailjs-com';
-// import anime from 'animejs';
 import './App.css';
 
 const App = () => {
@@ -15,51 +14,38 @@ const App = () => {
   const heroRef = useRef(null);
   const sphereRef = useRef();
 
-  // Dark mode effect
+  // Initialize theme
   useEffect(() => {
     setMounted(true);
+    const savedTheme = localStorage.getItem('theme');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    setDarkMode(prefersDark);
     
-    // Set initial theme
-    document.body.className = prefersDark ? 'dark-mode' : 'light-mode';
+    if (savedTheme) {
+      setDarkMode(savedTheme === 'dark');
+      document.body.className = savedTheme + '-mode';
+    } else {
+      setDarkMode(prefersDark);
+      document.body.className = prefersDark ? 'dark-mode' : 'light-mode';
+    }
   }, []);
 
-  // skills section
+  // Toggle theme
+  const toggleTheme = () => {
+    const newMode = !darkMode;
+    setDarkMode(newMode);
+    document.body.className = newMode ? 'dark-mode' : 'light-mode';
+    localStorage.setItem('theme', newMode ? 'dark' : 'light');
+  };
+
   // Skills data
-const skills = [
-  {
-    name: "JavaScript",
-    icon: <FiCode />,
-    level: 90
-  },
-  {
-    name: "React",
-    icon: <FiCode />,
-    level: 85
-  },
-  {
-    name: "Node.js",
-    icon: <FiCode />,
-    level: 80
-  },
-  {
-    name: "HTML/CSS",
-    icon: <FiCode />,
-    level: 95
-  },
-  {
-    name: "TypeScript",
-    icon: <FiCode />,
-    level: 75
-  },
-  {
-    name: "Git",
-    icon: <FiCode />,
-    level: 85
-  },
-  // Add more skills as needed
-];
+  const skills = [
+    { name: "JavaScript", icon: <FiCode />, level: 90 },
+    { name: "React", icon: <FiCode />, level: 85 },
+    { name: "Node.js", icon: <FiCode />, level: 80 },
+    { name: "HTML/CSS", icon: <FiCode />, level: 95 },
+    { name: "TypeScript", icon: <FiCode />, level: 75 },
+    { name: "Git", icon: <FiCode />, level: 85 },
+  ];
 
   // Animation effects
   useEffect(() => {
@@ -83,13 +69,24 @@ const skills = [
     });
 
     // Stats counter animation
-    anime({
-      targets: '.stat-number',
-      innerHTML: [0, (el) => el.getAttribute('data-target')],
-      round: 1,
-      easing: 'easeInOutExpo',
-      duration: 2000,
-      delay: anime.stagger(200)
+    const statNumbers = document.querySelectorAll('.stat-number');
+    statNumbers.forEach(el => {
+      const target = parseInt(el.getAttribute('data-target'));
+      let count = 0;
+      const duration = 2000;
+      const increment = target / (duration / 16);
+      
+      const updateCount = () => {
+        count += increment;
+        if (count < target) {
+          el.textContent = Math.floor(count);
+          requestAnimationFrame(updateCount);
+        } else {
+          el.textContent = target;
+        }
+      };
+      
+      updateCount();
     });
 
     // Scroll animations
@@ -106,14 +103,7 @@ const skills = [
         duration: 1
       });
     });
-
-    // Theme color transition
-    gsap.to(":root", {
-      '--primary': darkMode ? '#8189ff' : '#646cff',
-      '--secondary': darkMode ? '#6a73ff' : '#535bf2',
-      duration: 0.5
-    });
-  }, [mounted, darkMode]);
+  }, [mounted]);
 
   // Scroll spy effect
   useEffect(() => {
@@ -241,7 +231,7 @@ const skills = [
       {/* Theme Toggle */}
       <motion.button
         className="theme-toggle"
-        onClick={() => setDarkMode(!darkMode)}
+        onClick={toggleTheme}
         whileHover={{ scale: 1.1, rotate: darkMode ? 0 : 180 }}
         whileTap={{ scale: 0.9 }}
         initial={{ opacity: 0 }}
