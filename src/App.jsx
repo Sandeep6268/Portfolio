@@ -195,8 +195,8 @@ const App = () => {
   const FloatingNav = () => {
     const navItems = [
       { icon: <FiUser />, label: "About", href: "#home" },
-      { icon: <FiCode />, label: "Skills", href: "#skills" },
       { icon: <FiBriefcase />, label: "Work", href: "#projects" },
+      { icon: <FiCode />, label: "Skills", href: "#skills" },
       { icon: <FiMessageSquare />, label: "Contact", href: "#contact" },
     ];
 
