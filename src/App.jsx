@@ -572,9 +572,11 @@ const SuccessModal = ({ onClose, darkMode }) => {
 const ContactForm = ({ darkMode }) => {
   const form = useRef();
   const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const sendEmail = (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
     emailjs
       .sendForm(
         "service_bo02hid",
@@ -588,7 +590,10 @@ const ContactForm = ({ darkMode }) => {
       })
       .catch(() => {
         alert("Failed to send message. Please try again.");
-      });
+      })
+      .finally(() => {
+        setIsSubmitting(false);
+      });;
   };
 
   return (
@@ -615,12 +620,21 @@ const ContactForm = ({ darkMode }) => {
         <textarea name="message" placeholder="Your Message" required></textarea>
       </div>
       <motion.button
-        type="submit"
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-      >
-        Send Message
-      </motion.button>
+          type="submit"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          disabled={isSubmitting}
+          className={isSubmitting ? "submitting" : ""}
+        >
+          {isSubmitting ? (
+            <div className="spinner-container">
+              <div className="spinner"></div>
+              <span>Sending...</span>
+            </div>
+          ) : (
+            "Send Message"
+          )}
+        </motion.button>
     </motion.form>
     <AnimatePresence>
         {showSuccessModal && (

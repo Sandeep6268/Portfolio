@@ -780,3 +780,38 @@ header h1 {
   margin-top: -1rem;
   }
 }
+
+/* Loading Spinner Styles */
+.spinner-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+}
+
+.spinner {
+  width: 1.2rem;
+  height: 1.2rem;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.contact-form button[disabled] {
+  opacity: 0.8;
+  cursor: not-allowed;
+}
+
+.contact-form button.submitting {
+  background: linear-gradient(to right, var(--primary), var(--primary));
+}
+
+/* Dark mode spinner color adjustment */
+.dark-mode .spinner {
+  border-top-color: var(--primary-light);
+}
