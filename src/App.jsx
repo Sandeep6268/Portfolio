@@ -270,7 +270,7 @@ const App = () => {
               autoRotateSpeed={darkMode ? 1 : 2}
               enablePan={false}
             />
-            {/* <AnimatedSphere /> */}
+            <AnimatedSphere />
           </Canvas>
           <div className="glow-effect"></div>
         </motion.div>
