@@ -180,10 +180,10 @@ header h1 {
 /* Hero Section */
 .hero {
   position: relative;
-  min-height: 100vh;
+  /* min-height: 100vh; */
   display: flex;
   align-items: center;
-  padding: 2rem;
+  /* padding: 2rem; */
   z-index: 1;
 }
 
@@ -632,8 +632,8 @@ header h1 {
 @media (max-width: 768px) {
   .hero {
     min-height: auto;
-    padding-top: 6rem;
-    padding-bottom: 4rem;
+    /* padding-top: 6rem;
+    padding-bottom: 4rem; */
   }
   
   .hero-text {
