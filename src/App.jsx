@@ -22,24 +22,22 @@ const App = () => {
   const heroRef = useRef(null);
   const sphereRef = useRef();
 
- 
-
   // Skills data
   // Updated skills data in the App component
-const skills = [
-  { name: "HTML5", icon: <FiCode />, level: 95 },
-  { name: "CSS3", icon: <FiCode />, level: 90 },
-  { name: "JavaScript", icon: <FiCode />, level: 90 },
-  { name: "React js", icon: <FiCode />, level: 85 },
-  { name: "Bootstrap", icon: <FiCode />, level: 80 },
-  { name: "Python", icon: <FiCode />, level: 80 },
-  { name: "Django", icon: <FiCode />, level: 75 },
-  { name: "SQL", icon: <FiCode />, level: 80 },
-  { name: "Next.js", icon: <FiCode />, level: 70 },
-  { name: "Firebase", icon: <FiCode />, level: 75 },
-  { name: "Razorpay", icon: <FiCode />, level: 70 },
-  { name: "Git", icon: <FiCode />, level: 85 },
-];
+  const skills = [
+    { name: "HTML5", icon: <FiCode />, level: 95 },
+    { name: "CSS3", icon: <FiCode />, level: 90 },
+    { name: "JavaScript", icon: <FiCode />, level: 90 },
+    { name: "React js", icon: <FiCode />, level: 85 },
+    { name: "Bootstrap", icon: <FiCode />, level: 80 },
+    { name: "Python", icon: <FiCode />, level: 80 },
+    { name: "Django", icon: <FiCode />, level: 75 },
+    { name: "SQL", icon: <FiCode />, level: 80 },
+    { name: "Next.js", icon: <FiCode />, level: 70 },
+    { name: "Firebase", icon: <FiCode />, level: 75 },
+    { name: "Razorpay", icon: <FiCode />, level: 70 },
+    { name: "Git", icon: <FiCode />, level: 85 },
+  ];
 
   // Animation effects
   useEffect(() => {
@@ -125,48 +123,55 @@ const skills = [
   // Projects data
   const projects = [
     {
-      title: "E-commerce Platform",
-      desc: "Full-featured online store with cart & payments",
-      tech: ["React", "Node.js", "Stripe", "MongoDB"],
-      github: "https://github.com/Sandeep6268/ecco-font",
-      live: "https://ecco-font.vercel.app/",
-      image:
-        "https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+  title: "RS Clothing - Full Stack ",
+  desc: "Advanced clothing e-commerce platform with complete shopping experience",
+  tech: ["React", "Django", "PostgreSQL", "Cloudinary", "Firebase", "Razorpay"],
+  github: "https://github.com/Sandeep6268/ecco-font",
+  live: "https://ecco-font.vercel.app/",
+  image: "/clothing.png", // Make sure this image exists in your public folder
+  features: [
+    "React frontend with responsive design",
+    "Django REST framework backend",
+    "Neon PostgreSQL database integration",
+    "Cloudinary CDN for product images",
+    "Firebase authentication (Email/Google)",
+    "Razorpay payment gateway integration",
+    "Advanced product filtering system",
+    "Admin dashboard for inventory",
+    "Contact form with email support",
+  ]
+},
+    {
+      title: "YouTube Clone",
+      desc: "A full-featured YouTube clone with video streaming, search, and channel functionality",
+      tech: ["React", "Material UI", "Google Cloud Console"],
+      github: "https://github.com/Sandeep6268/youtubeclone",
+      live: "https://sandeep6268.github.io/youtubeclone/", // Add your live URL here if deployed
+      image: "/yt.png",
       features: [
-        "Product catalog with filters",
-        "Secure payment processing",
-        "User authentication",
+        "Video streaming and playback functionality",
+        "Advanced search",
+        "Subscriber counts",
+        "Responsive design for all devices",
+        "Comment section with replies",
+        "Expand and Collapse toggle",
+      ],
+    },
+    {
+      title: "WEAS E-Commerce By (JS)",
+      desc: "Pure JavaScript e-commerce platform with PhonePe payment integration",
+      tech: ["JavaScript", "PHP", "PhonePe API", "HTML5", "CSS3", "Bootstrap"],
+      github: "#", // Add GitHub link if available
+      live: "https://weas.in/", // Add live URL if available
+      image: "/weas.png", // Add your screenshot path
+      features: [
+        "Vanilla JavaScript frontend",
+        "PhonePe payment gateway integration via PHP backend",
+        "Product catalog with categories",
+        "Shopping cart system",
         "Order tracking",
-      ],
-    },
-    {
-      title: "Task Management App",
-      desc: "Kanban-style productivity tool with drag-n-drop",
-      tech: ["React", "Firebase", "Material UI", "Redux"],
-      github: "#",
-      live: "#",
-      image:
-        "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      features: [
-        "Drag and drop interface",
-        "Real-time collaboration",
-        "Task prioritization",
-        "Progress tracking",
-      ],
-    },
-    {
-      title: "Portfolio Website",
-      desc: "Interactive 3D portfolio website",
-      tech: ["React", "Three.js", "Framer Motion", "CSS3"],
-      github: "#",
-      live: "#",
-      image:
-        "https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
-      features: [
-        "3D interactive elements",
-        "Dark/light mode",
-        "Responsive design",
-        "Micro-interactions",
+        "Admin dashboard",
+        "Responsive mobile design",
       ],
     },
   ];
@@ -230,245 +235,240 @@ const skills = [
 
   return (
     <>
-    {/* 3D Model Background - Now fixed */}
-        <motion.div
-          className="hero-image-fixed"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.7 }}
-          transition={{ duration: 1 }}
-        >
-          <Canvas>
-            <ambientLight intensity={0.5} />
-            <pointLight position={[10, 10, 10]} intensity={1} />
-            <pointLight position={[-10, -10, -10]} intensity={0.5} />
-            
-              <Stars radius={100} depth={50} count={5000} factor={4} />
-          
-            <OrbitControls
-              enableZoom={false}
-              autoRotate
-              autoRotateSpeed={`1 `}
-              enablePan={false}
-            />
-            {/* <AnimatedSphere /> */}
-          </Canvas>
-          <div className="glow-effect"></div>
-        </motion.div>
-    <div className={`portfolio dark`}>
-      
-
-      {/* Header */}
-      <motion.header
-        initial={{ opacity: 0, y: -50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-      >
-        <h1>Sandeep Singh Khicchi</h1>
-        <motion.p
-          className="subtitle"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.8 }}
-          transition={{ delay: 0.5 }}
-        >
-          Full Stack Developer | Problem Solver
-        </motion.p>
-      </motion.header>
-
-      {/* Floating Navigation */}
-      <FloatingNav />
-
-      {/* Hero Section */}
-      <section id="home" className="hero" ref={heroRef}>
-        
-
-        <div className="hero-content">
-          <div className="hero-text">
-            <h2>Building Digital Experiences That Matter</h2>
-            <p>
-              I specialize in creating responsive, performant web applications
-              with modern technologies. With 4+ years of experience, I bring
-              both technical expertise and creative problem-solving to every
-              project.
-            </p>
-            <div className="hero-stats">
-              <div className="stat">
-                <span className="stat-number" data-target="50">
-                  0
-                </span>
-                <span className="stat-label">Projects</span>
-              </div>
-              <div className="stat">
-                <span className="stat-number" data-target="20">
-                  0
-                </span>
-                <span className="stat-label">Clients</span>
-              </div>
-              <div className="stat">
-                <span className="stat-number" data-target="4">
-                  0
-                </span>
-                <span className="stat-label">Years Exp</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Projects Section */}
-      <section id="projects" className="projects-section">
-        <h2 className="section-title">Featured Work</h2>
-        <div className="projects-grid">
-          {projects.map((project, index) => (
-            <motion.div
-              key={project.title}
-              className="project-card"
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 + 0.3 }}
-              whileHover={{ y: -10 }}
-            >
-              <div
-                className="project-image"
-                style={{ backgroundImage: `url(${project.image})` }}
-              >
-                <div className="project-links">
-                  {project.github && (
-                    <a
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <FiGithub />
-                    </a>
-                  )}
-                  {project.live && (
-                    <a
-                      href={project.live}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <FiExternalLink />
-                    </a>
-                  )}
-                </div>
-              </div>
-              <div className="project-info">
-                <h3>{project.title}</h3>
-                <p>{project.desc}</p>
-                <div className="project-features">
-                  <h4>Key Features:</h4>
-                  <ul>
-                    {project.features.map((feature, i) => (
-                      <li key={i}>{feature}</li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="tech-tags">
-                  {project.tech.map((tech) => (
-                    <span key={tech}>{tech}</span>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </section>
-
-      {/* Skills Section */}
-      <section id="skills" className="skills-section">
-        <h2 className="section-title">Tech Stack</h2>
-        <div className="skills-grid">
-          {skills.map((skill) => (
-            <motion.div
-              key={skill.name}
-              className="skill-item"
-              whileHover={{ scale: 1.05 }}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-            >
-              <div className="skill-icon">{skill.icon}</div>
-              <div className="skill-info">
-                <h4>{skill.name}</h4>
-                <div className="skill-bar">
-                  <motion.div
-                    className="skill-progress"
-                    initial={{ width: 0 }}
-                    whileInView={{ width: `${skill.level}%` }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 1, delay: 0.3 }}
-                  />
-                </div>
-                <span className="skill-level">{skill.level}%</span>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </section>
-
-      {/* Contact Section */}
-      <section id="contact" className="contact-section">
-        <h2 className="section-title">Get In Touch</h2>
-        <div className="contact-container">
-          <div className="contact-info">
-            <h3>Let's work together</h3>
-            <p>
-              I'm currently available for freelance work or full-time positions.
-              Feel free to reach out for project discussions or just to say
-              hello!
-            </p>
-            <div className="contact-details">
-              <a href="mailto:sandeepsinghkhicchi@gmail.com">
-                <FiMail /> sandeepsinghkhicchi@gmail.com
-              </a>
-              <div className="social-links">
-                <a
-                  href="http://linkedin.com/in/sandeep-singh-khicchi-70440b2a5"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <FiLinkedin />
-                </a>
-                <a
-                  href="https://www.instagram.com/sandybannarajput/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <FiInstagram />
-                </a>
-                <a
-                  href="https://github.com/Sandeep6268"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <FiGithub />
-                </a>
-              </div>
-            </div>
-          </div>
-          <ContactForm />
-        </div>
-      </section>
-
-      {/* Back to Top Button */}
-      <motion.button
-        className="back-to-top"
-        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
+      {/* 3D Model Background - Now fixed */}
+      <motion.div
+        className="hero-image-fixed"
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1 }}
+        animate={{ opacity: 0.7 }}
+        transition={{ duration: 1 }}
       >
-        ↑
-      </motion.button>
-    </div>
+        <Canvas>
+          <ambientLight intensity={0.5} />
+          <pointLight position={[10, 10, 10]} intensity={1} />
+          <pointLight position={[-10, -10, -10]} intensity={0.5} />
+
+          <Stars radius={100} depth={50} count={5000} factor={4} />
+
+          <OrbitControls
+            enableZoom={false}
+            autoRotate
+            autoRotateSpeed={`1 `}
+            enablePan={false}
+          />
+          {/* <AnimatedSphere /> */}
+        </Canvas>
+        <div className="glow-effect"></div>
+      </motion.div>
+      <div className={`portfolio dark`}>
+        {/* Header */}
+        <motion.header
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          <h1>Sandeep Singh Khicchi</h1>
+          <motion.p
+            className="subtitle"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.8 }}
+            transition={{ delay: 0.5 }}
+          >
+            Full Stack Developer | Problem Solver
+          </motion.p>
+        </motion.header>
+
+        {/* Floating Navigation */}
+        <FloatingNav />
+
+        {/* Hero Section */}
+        <section id="home" className="hero" ref={heroRef}>
+          <div className="hero-content">
+            <div className="hero-text">
+              <h2>Building Digital Experiences That Matter</h2>
+              <p>
+                I specialize in creating responsive, performant web applications
+                with modern technologies. With 1+ years of experience, I bring
+                both technical expertise and creative problem-solving to every
+                project.
+              </p>
+              <div className="hero-stats">
+                <div className="stat">
+                  <span className="stat-number" data-target="20">
+                    0
+                  </span>
+                  <span className="stat-label">Projects</span>
+                </div>
+                <div className="stat">
+                  <span className="stat-number" data-target="8">
+                    0
+                  </span>
+                  <span className="stat-label">Clients</span>
+                </div>
+                <div className="stat">
+                  <span className="stat-number" data-target="1">
+                    0
+                  </span>
+                  <span className="stat-label">Years Exp</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Projects Section */}
+        <section id="projects" className="projects-section">
+          <h2 className="section-title">Featured Work</h2>
+          <div className="projects-grid">
+            {projects.map((project, index) => (
+              <motion.div
+                key={project.title}
+                className="project-card"
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 + 0.3 }}
+                whileHover={{ y: -10 }}
+              >
+                <div
+                  className="project-image"
+                  style={{ backgroundImage: `url(${project.image})` }}
+                >
+                  <div className="project-links">
+                    {project.github && (
+                      <a
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <FiGithub />
+                      </a>
+                    )}
+                    {project.live && (
+                      <a
+                        href={project.live}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <FiExternalLink />
+                      </a>
+                    )}
+                  </div>
+                </div>
+                <div className="project-info">
+                  <h3>{project.title}</h3>
+                  <p>{project.desc}</p>
+                  <div className="project-features">
+                    <h4>Key Features:</h4>
+                    <ul>
+                      {project.features.map((feature, i) => (
+                        <li key={i}>{feature}</li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div className="tech-tags">
+                    {project.tech.map((tech) => (
+                      <span key={tech}>{tech}</span>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+
+        {/* Skills Section */}
+        <section id="skills" className="skills-section">
+          <h2 className="section-title">Tech Stack</h2>
+          <div className="skills-grid">
+            {skills.map((skill) => (
+              <motion.div
+                key={skill.name}
+                className="skill-item"
+                whileHover={{ scale: 1.05 }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+              >
+                <div className="skill-icon">{skill.icon}</div>
+                <div className="skill-info">
+                  <h4>{skill.name}</h4>
+                  <div className="skill-bar">
+                    <motion.div
+                      className="skill-progress"
+                      initial={{ width: 0 }}
+                      whileInView={{ width: `${skill.level}%` }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 1, delay: 0.3 }}
+                    />
+                  </div>
+                  <span className="skill-level">{skill.level}%</span>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+
+        {/* Contact Section */}
+        <section id="contact" className="contact-section">
+          <h2 className="section-title">Get In Touch</h2>
+          <div className="contact-container">
+            <div className="contact-info">
+              <h3>Let's work together</h3>
+              <p>
+                I'm currently available for freelance work or full-time
+                positions. Feel free to reach out for project discussions or
+                just to say hello!
+              </p>
+              <div className="contact-details">
+                <a href="mailto:sandeepsinghkhicchi@gmail.com">
+                  <FiMail /> sandeepsinghkhicchi@gmail.com
+                </a>
+                <div className="social-links">
+                  <a
+                    href="http://linkedin.com/in/sandeep-singh-khicchi-70440b2a5"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <FiLinkedin />
+                  </a>
+                  <a
+                    href="https://www.instagram.com/sandybannarajput/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <FiInstagram />
+                  </a>
+                  <a
+                    href="https://github.com/Sandeep6268"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <FiGithub />
+                  </a>
+                </div>
+              </div>
+            </div>
+            <ContactForm />
+          </div>
+        </section>
+
+        {/* Back to Top Button */}
+        <motion.button
+          className="back-to-top"
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1 }}
+        >
+          ↑
+        </motion.button>
+      </div>
     </>
   );
 };
-
 
 const SuccessModal = ({ onClose }) => {
   const modalRef = useRef();
@@ -530,7 +530,6 @@ const SuccessModal = ({ onClose }) => {
   );
 };
 
-
 // ContactForm component
 const ContactForm = () => {
   const form = useRef();
@@ -556,33 +555,37 @@ const ContactForm = () => {
       })
       .finally(() => {
         setIsSubmitting(false);
-      });;
+      });
   };
 
   return (
     <>
-    <motion.form
-      ref={form}
-      onSubmit={sendEmail}
-      className="contact-form"
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.8 }}
-    >
-      <div className="form-group">
-        <input type="text" name="name" placeholder="Your Name" required />
-      </div>
-      <div className="form-group">
-        <input type="email" name="email" placeholder="Your Email" required />
-      </div>
-      <div className="form-group">
-        <input type="text" name="subject" placeholder="Subject" required />
-      </div>
-      <div className="form-group">
-        <textarea name="message" placeholder="Your Message" required></textarea>
-      </div>
-      <motion.button
+      <motion.form
+        ref={form}
+        onSubmit={sendEmail}
+        className="contact-form"
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8 }}
+      >
+        <div className="form-group">
+          <input type="text" name="name" placeholder="Your Name" required />
+        </div>
+        <div className="form-group">
+          <input type="email" name="email" placeholder="Your Email" required />
+        </div>
+        <div className="form-group">
+          <input type="text" name="subject" placeholder="Subject" required />
+        </div>
+        <div className="form-group">
+          <textarea
+            name="message"
+            placeholder="Your Message"
+            required
+          ></textarea>
+        </div>
+        <motion.button
           type="submit"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
@@ -598,13 +601,13 @@ const ContactForm = () => {
             "Send Message"
           )}
         </motion.button>
-    </motion.form>
-    <AnimatePresence>
+      </motion.form>
+      <AnimatePresence>
         {showSuccessModal && (
-          <SuccessModal onClose={() => setShowSuccessModal(false)}  />
+          <SuccessModal onClose={() => setShowSuccessModal(false)} />
         )}
       </AnimatePresence>
-      </>
+    </>
   );
 };
 
