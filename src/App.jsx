@@ -18,36 +18,11 @@ import emailjs from "emailjs-com";
 import "./App.css";
 
 const App = () => {
-  const [darkMode, setDarkMode] = useState(false);
-  const [mounted, setMounted] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
   const heroRef = useRef(null);
   const sphereRef = useRef();
 
-  // Initialize theme
-  useEffect(() => {
-    setMounted(true);
-    const savedTheme = localStorage.getItem("theme");
-    const prefersDark = window.matchMedia(
-      "(prefers-color-scheme: dark)"
-    ).matches;
-
-    if (savedTheme) {
-      setDarkMode(savedTheme === "dark");
-      document.body.className = savedTheme + "-mode";
-    } else {
-      setDarkMode(prefersDark);
-      document.body.className = prefersDark ? "dark-mode" : "light-mode";
-    }
-  }, []);
-
-  // Toggle theme
-  const toggleTheme = () => {
-    const newMode = !darkMode;
-    setDarkMode(newMode);
-    document.body.className = newMode ? "dark-mode" : "light-mode";
-    localStorage.setItem("theme", newMode ? "dark" : "light");
-  };
+ 
 
   // Skills data
   // Updated skills data in the App component
@@ -279,20 +254,8 @@ const skills = [
           </Canvas>
           <div className="glow-effect"></div>
         </motion.div>
-    <div className={`portfolio ${darkMode ? "dark" : "light"}`}>
-      {/* Theme Toggle */}
-      {/* <motion.button
-        className="theme-toggle"
-        onClick={toggleTheme}
-        whileHover={{ scale: 1.1, rotate: darkMode ? 0 : 180 }}
-        whileTap={{ scale: 0.9 }}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.5 }}
-        aria-label={darkMode ? "Switch to light mode" : "Switch to dark mode"}
-      >
-        {darkMode ? <FiSun size={20} /> : <FiMoon size={20} />}
-      </motion.button> */}
+    <div className={`portfolio dark`}>
+      
 
       {/* Header */}
       <motion.header
@@ -485,7 +448,7 @@ const skills = [
               </div>
             </div>
           </div>
-          <ContactForm darkMode={darkMode} />
+          <ContactForm />
         </div>
       </section>
 
@@ -507,7 +470,7 @@ const skills = [
 };
 
 
-const SuccessModal = ({ onClose, darkMode }) => {
+const SuccessModal = ({ onClose }) => {
   const modalRef = useRef();
 
   // Close modal when clicking outside
@@ -532,7 +495,7 @@ const SuccessModal = ({ onClose, darkMode }) => {
     >
       <motion.div
         ref={modalRef}
-        className={`success-modal ${darkMode ? "dark" : "light"}`}
+        className={`success-modal dark`}
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.8, opacity: 0 }}
@@ -569,7 +532,7 @@ const SuccessModal = ({ onClose, darkMode }) => {
 
 
 // ContactForm component
-const ContactForm = ({ darkMode }) => {
+const ContactForm = () => {
   const form = useRef();
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -638,7 +601,7 @@ const ContactForm = ({ darkMode }) => {
     </motion.form>
     <AnimatePresence>
         {showSuccessModal && (
-          <SuccessModal onClose={() => setShowSuccessModal(false)} darkMode={darkMode} />
+          <SuccessModal onClose={() => setShowSuccessModal(false)}  />
         )}
       </AnimatePresence>
       </>
