@@ -1,16 +1,16 @@
 /* CSS Variables */
 :root {
-  --primary: #646cff;
-  --primary-light: #8189ff;
-  --secondary: #535bf2;
-  --accent: #ff6b6b;
-  --text: #1a1a1a;
-  --text-light: #4a4a4a;
-  --bg: #f9f9ff;
-  --card-bg: #ffffff;
-  --border: #e0e0e0;
-  --shadow: rgba(0, 0, 0, 0.1);
-  --shadow-lg: rgba(0, 0, 0, 0.2);
+  --primary: #8189ff;
+  --primary-light: #9ca2ff;
+  --secondary: #6a73ff;
+  --accent: #ff8b8b;
+  --text: #f0f0f0;
+  --text-light: #d0d0d0;
+  --bg: #121212;
+  --card-bg: #1e1e1e;
+  --border: #333333;
+  --shadow: rgba(0, 0, 0, 0.3);
+  --shadow-lg: rgba(0, 0, 0, 0.5);
   --transition: all 0.3s ease;
 }
 

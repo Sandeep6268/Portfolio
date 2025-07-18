@@ -43,7 +43,7 @@ const skills = [
 
   // Animation effects
   useEffect(() => {
-    if (!mounted) return;
+    // if (!mounted) return;
 
     // Hero text animation
     gsap.from(".hero-text h2", {
@@ -97,7 +97,7 @@ const skills = [
         duration: 1,
       });
     });
-  }, [mounted]);
+  }, []);
 
   // Scroll spy effect
   useEffect(() => {
