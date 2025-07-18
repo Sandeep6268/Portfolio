@@ -218,11 +218,11 @@ const skills = [
     return (
       <Sphere args={[1, 32, 32]} ref={sphereRef}>
         <meshStandardMaterial
-          color={darkMode ? "#8189ff" : "#646cff"}
+          color={`#8189ff" : "#646cff`}
           roughness={0.2}
-          metalness={darkMode ? 0.7 : 0.3}
-          emissive={darkMode ? "#3a3f8f" : "#a3a8ff"}
-          emissiveIntensity={darkMode ? 0.5 : 0.2}
+          metalness={` 0.7 : 0.3`}
+          emissive={`#3a3f8f" `}
+          emissiveIntensity={` 0.5 `}
         />
       </Sphere>
     );
@@ -241,13 +241,13 @@ const skills = [
             <ambientLight intensity={0.5} />
             <pointLight position={[10, 10, 10]} intensity={1} />
             <pointLight position={[-10, -10, -10]} intensity={0.5} />
-            {darkMode && (
+            
               <Stars radius={100} depth={50} count={5000} factor={4} />
-            )}
+          
             <OrbitControls
               enableZoom={false}
               autoRotate
-              autoRotateSpeed={darkMode ? 1 : 2}
+              autoRotateSpeed={`1 `}
               enablePan={false}
             />
             {/* <AnimatedSphere /> */}
@@ -506,7 +506,7 @@ const SuccessModal = ({ onClose }) => {
             <motion.path
               fill="none"
               strokeWidth="2"
-              stroke={darkMode ? "#8189ff" : "#646cff"}
+              stroke={`#8189ff `}
               strokeLinecap="round"
               d="M5 13l4 4L19 7"
               initial={{ pathLength: 0 }}
