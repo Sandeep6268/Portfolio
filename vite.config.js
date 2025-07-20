@@ -1,8 +1,14 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-// https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base:'/'
+  build: {
+    rollupOptions: {
+      external: ['three'], // three.js को एक्सटर्नल डिपेंडेंसी के रूप में मार्क करें
+    },
+  },
+  optimizeDeps: {
+    include: ['three'], // three.js को ऑप्टिमाइज़ेशन में शामिल करें
+  }
 })

@@ -12,6 +12,7 @@
   "dependencies": {
     "@react-three/drei": "^10.5.1",
     "@react-three/fiber": "^9.2.0",
+    "@types/three": "^0.178.1",
     "animejs": "^4.0.2",
     "emailjs-com": "^3.2.0",
     "framer-motion": "^12.23.6",
@@ -22,11 +23,15 @@
     "react-intersection-observer": "^9.16.0",
     "react-router-dom": "^7.7.0",
     "react-scripts": "^5.0.1",
-    "sass": "^1.89.2"
+    "sass": "^1.89.2",
+    "three": "^0.178.0"
   },
   "engines": {
-  "npm": ">=8.0.0",
-  "node": ">=16.0.0"
+    "npm": ">=8.0.0",
+    "node": ">=16.0.0"
+  },
+  "peerDependencies": {
+  "three": ">=0.140.0"
 },
   "devDependencies": {
     "@eslint/js": "^9.30.1",
