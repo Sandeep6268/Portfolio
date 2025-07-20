@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "allowJs": true,       // JS फाइल्स को TS के साथ इस्तेमाल करने की अनुमति
+    "jsx": "react-jsx",   // JSX सपोर्ट
+    "esModuleInterop": true,
+    "skipLibCheck": true
+  },
+  "include": ["src/**/*"]  // सभी JSX/TSX फाइल्स को शामिल करें
+}
