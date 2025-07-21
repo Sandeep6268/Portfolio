@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import * as THREE from 'three'
-window.THREE = THREE
+import * as THREE from 'three';
+window.THREE = THREE;
 import {
   FiGithub,
   FiExternalLink,
