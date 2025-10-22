@@ -28,18 +28,22 @@ const App = () => {
   // Skills data
   // Updated skills data in the App component
   const skills = [
-    { name: "HTML5", icon: <FiCode />, level: 95 },
-    { name: "CSS3", icon: <FiCode />, level: 90 },
-    { name: "JavaScript", icon: <FiCode />, level: 90 },
-    { name: "React js", icon: <FiCode />, level: 85 },
-    { name: "Bootstrap", icon: <FiCode />, level: 80 },
-    { name: "Python", icon: <FiCode />, level: 80 },
-    { name: "Django", icon: <FiCode />, level: 75 },
-    { name: "SQL", icon: <FiCode />, level: 80 },
-    { name: "Next.js", icon: <FiCode />, level: 70 },
-    { name: "Firebase", icon: <FiCode />, level: 75 },
-    { name: "Razorpay", icon: <FiCode />, level: 70 },
-    { name: "Git", icon: <FiCode />, level: 85 },
+   { name: "HTML5", icon: <FiCode />, level: 95 },
+{ name: "CSS3", icon: <FiCode />, level: 90 },
+{ name: "JavaScript", icon: <FiCode />, level: 90 },
+{ name: "React js", icon: <FiCode />, level: 85 },
+{ name: "Node.js", icon: <FiCode />, level: 75 },
+{ name: "MongoDB", icon: <FiCode />, level: 75 },
+{ name: "Tailwind CSS", icon: <FiCode />, level: 85 },
+{ name: "Bootstrap", icon: <FiCode />, level: 80 },
+{ name: "Python", icon: <FiCode />, level: 80 },
+{ name: "Django", icon: <FiCode />, level: 75 },
+{ name: "SQL", icon: <FiCode />, level: 80 },
+{ name: "Next.js", icon: <FiCode />, level: 70 },
+{ name: "Firebase", icon: <FiCode />, level: 75 },
+{ name: "Cloudinary", icon: <FiCode />, level: 70 },
+{ name: "Razorpay", icon: <FiCode />, level: 70 },
+{ name: "Git", icon: <FiCode />, level: 85 }
   ];
 
   // Animation effects
@@ -126,23 +130,25 @@ const App = () => {
   // Projects data
   const projects = [
     {
-  title: "RS Clothing - Full Stack ",
-  desc: "Advanced clothing e-commerce platform with complete shopping experience",
-  tech: ["React", "Django", "PostgreSQL", "Cloudinary", "Firebase", "Razorpay"],
-  github: "https://github.com/Sandeep6268/ecco-font",
-  live: "https://ecco-font.vercel.app/",
-  image: "/clothing.png", // Make sure this image exists in your public folder
-  features: [
-    "React frontend with responsive design",
-    "Django REST framework backend",
-    "Neon PostgreSQL database integration",
-    "Cloudinary CDN for product images",
+  
+  "title": "SHOPEASY - Next JS E-Commerce",
+  "desc": "Modern clothing e-commerce platform with complete shopping cart and user authentication",
+  "tech": ["Next.js", "React", "MongoDB", "Firebase Auth", "Tailwind CSS", "Context API"],
+  "github": "https://github.com/Sandeep6268/shopeasy-nextjs",
+  "live": "https://shopeasy-nextjs.vercel.app/",
+  "image": "/shopeasy.png",
+  "features": [
+    "Next.js 14 with App Router",
+    "MongoDB database integration",
     "Firebase authentication (Email/Google)",
-    "Razorpay payment gateway integration",
-    "Advanced product filtering system",
-    "Admin dashboard for inventory",
-    "Contact form with email support",
+    "Responsive design with Tailwind CSS",
+    "Shopping cart functionality",
+    "Product catalog with categories",
+    "User profile management",
+    "Search and filter products",
+    "State management with Context API"
   ]
+
 },
     {
       title: "YouTube Clone",
@@ -161,6 +167,26 @@ const App = () => {
       ],
     },
     {
+  "title": "CHATAPP - Real-time Messenger",
+  "desc": "Modern real-time chat application with live messaging, push notifications, and user discovery",
+  "tech": ["Next.js", "TypeScript", "React", "Firebase", "Firebase Auth", "Tailwind CSS", "Service Workers"],
+  "github": "https://github.com/Sandeep6268/chat-app-nextjs",
+  "live": "https://chat-app-nextjs-gray-eta.vercel.app/chat",
+  "image": "/chat-app.png",
+  "features": [
+    "Real-time messaging with Firebase",
+    "Full TypeScript implementation",
+    "Browser push notifications",
+    "User authentication (Login/Logout)",
+    "Discover and add new users via + icon",
+    "Type-safe Firebase operations",
+    "Responsive design with Tailwind CSS",
+    "Online/offline status tracking",
+    "Message history persistence",
+    "Modern UI with smooth animations"
+  ]
+},
+    {
       title: "WEAS E-Commerce By (JS)",
       desc: "Pure JavaScript e-commerce platform with PhonePe payment integration",
       tech: ["JavaScript", "PHP", "PhonePe API", "HTML5", "CSS3", "Bootstrap"],
@@ -177,6 +203,44 @@ const App = () => {
         "Responsive mobile design",
       ],
     },
+    {
+  "title": "DIGIMEDIA - Marketing Agency",
+  "desc": "Fully responsive marketing agency website built with pure HTML and CSS",
+  "tech": ["HTML5", "CSS3", "JavaScript", "Responsive Design"],
+  "github": "https://github.com/Sandeep6268/Digimedia-Website",
+  "live": "https://sandeep6268.github.io/Digimedia-Website/",
+  "image": "/digimedia.png",
+  "features": [
+    "Pure HTML5 and CSS3 implementation",
+    "Fully responsive design (Mobile-first)",
+    "Modern and clean UI/UX design",
+    "Cross-browser compatibility",
+    "Optimized for performance",
+    "Semantic HTML structure",
+    "CSS Flexbox and Grid layouts",
+    "Smooth animations and transitions",
+    "Contact forms and interactive elements"
+  ]
+},
+{
+  "title": "UTILITYHUB - Tools & Utilities",
+  "desc": "Fully responsive utility website with interactive features built with pure HTML, CSS and JavaScript",
+  "tech": ["HTML5", "CSS3", "JavaScript", "Responsive Design"],
+  "github": "https://github.com/Sandeep6268/utilityhub",
+  "live": "https://sandeep6268.github.io/utilityhub/",
+  "image": "/utilityhub.png",
+  "features": [
+    "Pure HTML5, CSS3 and Vanilla JavaScript",
+    "Fully responsive across all devices",
+    "Interactive UI components",
+    "Modern glassmorphism design",
+    "Cross-browser compatible",
+    "Lightweight and fast loading",
+    "Custom CSS animations",
+    "Form validation and user interactions",
+    "Clean and organized code structure"
+  ]
+}
   ];
 
   // FloatingNav component
