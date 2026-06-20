@@ -3,10 +3,11 @@ import { useSettings } from "../useSettings";
 import { Field, Input, Textarea, Toggle } from "../ui";
 import IconField from "../IconField";
 import SaveBar from "../SaveBar";
+import Loader from "../Loader";
 
 export default function ContactEditor() {
   const { settings, setNested, set, loading, saving, saved, error, save } = useSettings();
-  if (loading || !settings) return <div className="a-loading">Loading…</div>;
+  if (loading || !settings) return <Loader />;
   const contact = settings.contact || {};
   const socials = settings.socialLinks || [];
 

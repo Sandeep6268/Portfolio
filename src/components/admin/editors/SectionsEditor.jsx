@@ -4,6 +4,7 @@ import { useSettings } from "../useSettings";
 import { Field, Input, Toggle } from "../ui";
 import IconField from "../IconField";
 import SaveBar from "../SaveBar";
+import Loader from "../Loader";
 import { FiArrowUp, FiArrowDown, FiMove } from "react-icons/fi";
 
 const LABELS = {
@@ -23,7 +24,7 @@ export default function SectionsEditor() {
   const [overIdx, setOverIdx] = useState(null);
   const [navDrag, setNavDrag] = useState(null);
   const [navOver, setNavOver] = useState(null);
-  if (loading || !settings) return <div className="a-loading">Loading…</div>;
+  if (loading || !settings) return <Loader />;
 
   const sections = [...(settings.sections || [])].sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
   const nav = settings.navItems || [];

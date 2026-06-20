@@ -5,6 +5,7 @@ import { useSettings } from "../useSettings";
 import { api } from "../api";
 import { Field, Input, NumberInput, Toggle } from "../ui";
 import SaveBar from "../SaveBar";
+import Loader from "../Loader";
 
 function PasswordCard() {
   const [cur, setCur] = useState("");
@@ -45,7 +46,7 @@ function PasswordCard() {
 
 export default function SettingsEditor() {
   const { settings, setNested, loading, saving, saved, error, save } = useSettings();
-  if (loading || !settings) return <div className="a-loading">Loading…</div>;
+  if (loading || !settings) return <Loader />;
   const smtp = settings.smtp || {};
 
   return (

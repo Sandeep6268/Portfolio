@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import { useSettings } from "../useSettings";
 import { Field, Input, Toggle, ColorField } from "../ui";
 import SaveBar from "../SaveBar";
+import Loader from "../Loader";
 import { THEME_PRESETS, THEME_COLOR_KEYS } from "@/lib/themePresets";
 import { FiTrash2 } from "react-icons/fi";
 
@@ -21,7 +22,7 @@ function Swatches({ colors }) {
 export default function ThemeEditor() {
   const { settings, setNested, loading, saving, saved, error, save } = useSettings();
   const [newName, setNewName] = useState("");
-  if (loading || !settings) return <div className="a-loading">Loading…</div>;
+  if (loading || !settings) return <Loader />;
   const theme = settings.theme || {};
   const customPresets = theme.presets || [];
 

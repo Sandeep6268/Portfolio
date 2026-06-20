@@ -3,10 +3,11 @@ import { useSettings } from "../useSettings";
 import { Field, Input, Textarea, NumberInput } from "../ui";
 import MediaUpload from "../MediaUpload";
 import SaveBar from "../SaveBar";
+import Loader from "../Loader";
 
 export default function HeroEditor() {
   const { settings, setNested, loading, saving, saved, error, save } = useSettings();
-  if (loading || !settings) return <div className="a-loading">Loading…</div>;
+  if (loading || !settings) return <Loader />;
   const hero = settings.hero || {};
   const stats = hero.stats || [];
 

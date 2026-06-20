@@ -4,12 +4,13 @@ import { useSettings } from "../useSettings";
 import { Field, Input, Textarea, Select, Toggle, TagInput } from "../ui";
 import MediaUpload from "../MediaUpload";
 import SaveBar from "../SaveBar";
+import Loader from "../Loader";
 import { FiTrash2, FiPlus } from "react-icons/fi";
 
 export default function SeoEditor() {
   const { settings, setNested, loading, saving, saved, error, save } = useSettings();
   const [tab, setTab] = useState("meta");
-  if (loading || !settings) return <div className="a-loading">Loading…</div>;
+  if (loading || !settings) return <Loader />;
 
   const seo = settings.seo || {};
   const setSeo = (patch) => setNested("seo", patch);

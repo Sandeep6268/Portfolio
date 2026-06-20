@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 import { useCollection } from "./useCollection";
 import { useConfirm } from "./ConfirmProvider";
 import { Toggle, Alert } from "./ui";
+import Loader from "./Loader";
 import { FiArrowUp, FiArrowDown, FiEdit2, FiTrash2, FiX, FiPlus, FiMove } from "react-icons/fi";
 
 /**
@@ -26,7 +27,7 @@ export default function CollectionEditor({ resource, title, description, blankIt
   const [overIdx, setOverIdx] = useState(null);
   useEffect(() => setMounted(true), []);
 
-  if (loading) return <div className="a-loading">Loading…</div>;
+  if (loading) return <Loader />;
 
   const openAdd = () => setModal({ mode: "add", draft: blankItem() });
   const openEdit = (item) => setModal({ mode: "edit", id: item._id, draft: { ...item } });

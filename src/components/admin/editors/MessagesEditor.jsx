@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import { api } from "../api";
 import { useConfirm } from "../ConfirmProvider";
 import { Alert } from "../ui";
+import Loader from "../Loader";
 import { FiTrash2, FiMail, FiCheck } from "react-icons/fi";
 
 export default function MessagesEditor({ onChange }) {
@@ -54,7 +55,7 @@ export default function MessagesEditor({ onChange }) {
     }
   };
 
-  if (loading) return <div className="a-loading">Loading…</div>;
+  if (loading) return <Loader />;
 
   return (
     <div>
