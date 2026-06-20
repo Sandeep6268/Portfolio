@@ -1,9 +1,24 @@
 {
   "compilerOptions": {
-    "allowJs": true,       // JS फाइल्स को TS के साथ इस्तेमाल करने की अनुमति
-    "jsx": "react-jsx",   // JSX सपोर्ट
+    "target": "ES2020",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": false,
+    "noEmit": true,
     "esModuleInterop": true,
-    "skipLibCheck": true
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "plugins": [{ "name": "next" }],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   },
-  "include": ["src/**/*"]  // सभी JSX/TSX फाइल्स को शामिल करें
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "exclude": ["node_modules"]
 }
