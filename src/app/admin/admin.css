@@ -96,7 +96,7 @@
   position: sticky; top: 0; background: rgba(13,15,20,.8); backdrop-filter: blur(8px); z-index: 10;
 }
 .admin-topbar h2 { font-size: 1.2rem; }
-.admin-content { padding: 1.8rem; max-width: 980px; }
+.admin-content { padding: 1.8rem; }
 
 /* Cards / forms */
 .a-card {
@@ -183,8 +183,8 @@
 .a-toggle input { position: absolute; opacity: 0; width: 0; height: 0; margin: 0; pointer-events: none; }
 .a-toggle .track {
   width: 48px; height: 26px; border-radius: 999px;
-  background: #3a4150; border: none;
-  position: relative; transition: background .18s; flex: 0 0 auto;
+  background: #4b5468; border: 1px solid #5a6478;
+  position: relative; transition: background .18s, border-color .18s; flex: 0 0 auto;
   display: inline-block; box-sizing: border-box;
 }
 .a-toggle .track::after {
@@ -192,7 +192,7 @@
   width: 20px; height: 20px; border-radius: 50%; background: #fff;
   transition: transform .2s ease; box-shadow: 0 1px 3px rgba(0,0,0,.45);
 }
-.a-toggle input:checked + .track { background: var(--a-primary); }
+.a-toggle input:checked + .track { background: var(--a-primary); border-color: var(--a-primary); }
 .a-toggle input:checked + .track::after { transform: translateX(22px); }
 /* label-less toggles (row actions) shouldn't reserve trailing gap */
 .a-toggle:not(:has(> span:nth-child(3))) { gap: 0; }
