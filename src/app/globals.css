@@ -29,6 +29,7 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
@@ -38,6 +39,7 @@ body {
   transition: var(--transition);
   position: relative;
   overflow-x: hidden;
+  max-width: 100%;
 }
 
 /* ===== Themed scrollbars (dynamic — follow the selected theme) ===== */
@@ -75,8 +77,8 @@ html {
   height: 100%;
 }
 .smokey-canvas {
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   display: block;
 }
 
@@ -142,7 +144,7 @@ header.site-header h1 {
   color: var(--text);
   background: rgba(129, 137, 255, 0.1);
   position: relative;
-  transition: var(--transition);
+  transition: background .3s, color .3s;
   font-size: 1.1rem;
 }
 .nav-item.active,
@@ -150,6 +152,9 @@ header.site-header h1 {
   background: var(--primary);
   color: white;
 }
+.nav-item .nav-icon { display: flex; align-items: center; justify-content: center; position: relative; z-index: 2; }
+.nav-item .nav-label { display: none; }
+.nav-pill { display: none; }
 .nav-tooltip {
   position: absolute;
   right: 100%;
@@ -1138,32 +1143,77 @@ section { scroll-margin-top: 80px; }
   .hero { min-height: auto; }
   .hero-image-fixed { opacity: 0.4; }
   .projects-grid { grid-template-columns: 1fr; }
+  /* ===== Telegram-style full-width bottom nav (mobile) ===== */
   .floating-nav {
-    bottom: 1rem;
     top: auto;
-    left: 50%;
-    right: auto;
-    transform: translateX(-50%);
+    bottom: 0;
+    left: 0;
+    right: 0;
+    transform: none;
+    width: 100%;
+    max-width: 100%;
     flex-direction: row;
-    gap: 0.4rem;
-    padding: 0.5rem 0.7rem;
-    width: max-content;
-    max-width: calc(100vw - 1.5rem);
-    justify-content: center;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
+    justify-content: space-around;
+    align-items: stretch;
+    gap: 0;
+    padding: 0.4rem 0.3rem calc(0.4rem + env(safe-area-inset-bottom, 0px));
+    border-radius: 16px 16px 0 0;
+    background: rgba(20, 20, 22, 0.92);
+    backdrop-filter: blur(16px);
+    border: none;
+    border-top: 1px solid var(--border);
+    box-shadow: 0 -6px 24px rgba(0, 0, 0, 0.35);
+    overflow: visible;
   }
-  .floating-nav::-webkit-scrollbar { display: none; }
-  .floating-nav .nav-item { flex-shrink: 0; }
+  .floating-nav .nav-item {
+    flex: 1 1 0;
+    min-width: 0;
+    width: auto;
+    height: auto;
+    border-radius: 14px;
+    background: transparent;
+    flex-direction: column;
+    gap: 3px;
+    padding: 0.45rem 0.2rem;
+    color: var(--text-light);
+    font-size: 1.25rem;
+    overflow: hidden;
+  }
+  .floating-nav .nav-item.active,
+  .floating-nav .nav-item:hover { background: transparent; color: #fff; }
+  .floating-nav .nav-item.active { color: #fff; }
+  .floating-nav .nav-icon { font-size: 1.25rem; transition: transform .25s; }
+  .floating-nav .nav-item.active .nav-icon { transform: translateY(-2px) scale(1.05); }
+  .floating-nav .nav-label {
+    display: block;
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+  }
+  /* animated sliding pill behind the active item */
+  .floating-nav .nav-pill {
+    display: block;
+    position: absolute;
+    inset: 4px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    box-shadow: 0 6px 16px rgba(129, 137, 255, 0.45);
+    z-index: 1;
+  }
+  .floating-nav .nav-label,
+  .floating-nav .nav-icon { position: relative; z-index: 2; }
   .nav-tooltip { display: none; }
-  /* keep back-to-top clear of the centered bottom nav */
-  .back-to-top {
-    bottom: 5.2rem;
-    left: auto;
-    right: 1rem;
-    width: 44px;
-    height: 44px;
-  }
+
+  /* up-arrow hidden on mobile (bottom nav covers navigation) */
+  .back-to-top { display: none; }
+
+  /* leave room so content/footer isn't hidden behind the fixed bar */
+  .portfolio { padding-bottom: 5.5rem; }
+
   .section-title { font-size: 2rem; }
   .hero-text h2 { font-size: 2rem; }
 }
