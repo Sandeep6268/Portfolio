@@ -11,17 +11,25 @@ import { FiArrowLeft, FiArrowRight, FiTrash2, FiUploadCloud } from "react-icons/
 export default function MultiMediaUpload({ label = "Gallery", value = [], onChange }) {
   const inputRef = useRef(null);
   const [uploading, setUploading] = useState(false);
+  const [dragOver, setDragOver] = useState(false);
   const items = Array.isArray(value) ? value : [];
 
   const pick = () => inputRef.current?.click();
 
-  const onFiles = async (e) => {
-    const files = Array.from(e.target.files || []);
-    if (!files.length) return;
+  // shared: upload a list of File objects and append them to the gallery
+  const uploadFiles = async (files) => {
+    const valid = files.filter((f) => {
+      const m = f.type || "";
+      return m.startsWith("image/") || m.startsWith("video/");
+    });
+    if (!valid.length) {
+      if (files.length) toast.error("Only image or video files are allowed.");
+      return;
+    }
     setUploading(true);
     const uploaded = [];
     let failed = 0;
-    for (const file of files) {
+    for (const file of valid) {
       try {
         const res = await api.upload(file);
         uploaded.push({ type: res.type, url: res.url, publicId: res.publicId, caption: "", alt: "", title: "" });
@@ -36,6 +44,29 @@ export default function MultiMediaUpload({ label = "Gallery", value = [], onChan
     if (failed) toast.error(`${failed} upload${failed > 1 ? "s" : ""} failed`);
     setUploading(false);
     if (inputRef.current) inputRef.current.value = "";
+  };
+
+  const onFiles = (e) => uploadFiles(Array.from(e.target.files || []));
+
+  // paste copied image(s) from the clipboard
+  const onPaste = (e) => {
+    const files = [];
+    for (const it of e.clipboardData?.items || []) {
+      if (it.kind === "file") {
+        const f = it.getAsFile();
+        if (f) files.push(f);
+      }
+    }
+    if (files.length) {
+      e.preventDefault();
+      uploadFiles(files);
+    }
+  };
+
+  const onDrop = (e) => {
+    e.preventDefault();
+    setDragOver(false);
+    uploadFiles(Array.from(e.dataTransfer?.files || []));
   };
 
   const update = (i, patch) =>
@@ -62,7 +93,14 @@ export default function MultiMediaUpload({ label = "Gallery", value = [], onChan
   return (
     <div className="a-field">
       {label && <label>{label}</label>}
-      <div className="gallery-uploader">
+      <div
+        className={`gallery-uploader ${dragOver ? "dragover" : ""}`}
+        tabIndex={0}
+        onPaste={onPaste}
+        onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
+        onDragLeave={() => setDragOver(false)}
+        onDrop={onDrop}
+      >
         {items.map((it, i) => (
           <div className="gallery-tile" key={it.publicId || it.url || i}>
             {it.type === "video" ? (
@@ -103,7 +141,7 @@ export default function MultiMediaUpload({ label = "Gallery", value = [], onChan
         onChange={onFiles}
         style={{ display: "none" }}
       />
-      <div className="hint">Add multiple images / videos. Drag order with the arrows. Images auto-convert to WebP; videos optimized.</div>
+      <div className="hint">Add multiple images / videos — click, drag &amp; drop, or click here and paste (Ctrl/Cmd+V) a copied image. Reorder with the arrows. Images → WebP.</div>
     </div>
   );
 }

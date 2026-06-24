@@ -8,18 +8,25 @@ import { api } from "./api";
  * (images delivered as WebP, videos with auto quality/codec).
  * value = { type, url, publicId, alt?, title? }; onChange receives the new media object.
  * Pass seo={false} to hide the optional alt/title inputs.
+ *
+ * Supports: click-to-pick, drag & drop, and PASTE (Ctrl/Cmd+V a copied image).
  */
 export default function MediaUpload({ label = "Media", value = {}, onChange, accept = "image/*,video/*", seo = true }) {
   const inputRef = useRef(null);
   const [uploading, setUploading] = useState(false);
   const [err, setErr] = useState("");
+  const [dragOver, setDragOver] = useState(false);
   const v = value || {};
 
   const pick = () => inputRef.current?.click();
 
-  const onFile = async (e) => {
-    const file = e.target.files?.[0];
+  const uploadFile = async (file) => {
     if (!file) return;
+    const mime = file.type || "";
+    if (!mime.startsWith("image/") && !mime.startsWith("video/")) {
+      toast.error("Only image or video files are allowed.");
+      return;
+    }
     setErr("");
     setUploading(true);
     try {
@@ -36,8 +43,32 @@ export default function MediaUpload({ label = "Media", value = {}, onChange, acc
     }
   };
 
+  const onFile = (e) => uploadFile(e.target.files?.[0]);
+
+  // paste a copied image/screenshot from the clipboard
+  const onPaste = (e) => {
+    const items = e.clipboardData?.items || [];
+    for (const it of items) {
+      if (it.kind === "file") {
+        const file = it.getAsFile();
+        if (file) {
+          e.preventDefault();
+          uploadFile(file);
+          return;
+        }
+      }
+    }
+  };
+
+  // drag & drop
+  const onDrop = (e) => {
+    e.preventDefault();
+    setDragOver(false);
+    const file = e.dataTransfer?.files?.[0];
+    if (file) uploadFile(file);
+  };
+
   const clear = async () => {
-    // best-effort remote delete
     if (v.publicId) {
       try {
         await api.del(`/api/admin/upload?publicId=${encodeURIComponent(v.publicId)}&type=${v.type || "image"}`);
@@ -49,7 +80,14 @@ export default function MediaUpload({ label = "Media", value = {}, onChange, acc
   return (
     <div className="a-field">
       {label && <label>{label}</label>}
-      <div className="media-upload">
+      <div
+        className={`media-upload ${dragOver ? "dragover" : ""}`}
+        tabIndex={0}
+        onPaste={onPaste}
+        onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
+        onDragLeave={() => setDragOver(false)}
+        onDrop={onDrop}
+      >
         {v.url ? (
           v.type === "video" ? (
             <video className="preview" src={v.url} muted loop autoPlay playsInline />
@@ -97,7 +135,7 @@ export default function MediaUpload({ label = "Media", value = {}, onChange, acc
       )}
 
       {err && <div className="hint" style={{ color: "var(--a-danger)" }}>{err}</div>}
-      <div className="hint">Images auto-convert to WebP; videos optimized for fast load.</div>
+      <div className="hint">Click, drag &amp; drop, or click here and paste (Ctrl/Cmd+V) a copied image. Images → WebP; videos optimized.</div>
     </div>
   );
 }
