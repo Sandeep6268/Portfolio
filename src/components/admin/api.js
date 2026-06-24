@@ -39,4 +39,12 @@ export const api = {
     fd.append("file", file);
     return fetch("/api/admin/upload", { method: "POST", body: fd }).then(handle);
   },
+
+  /** Fetch a remote URL into Cloudinary -> { url, publicId, type } */
+  uploadUrl: (url) =>
+    fetch("/api/admin/upload/from-url", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ url }),
+    }).then(handle),
 };

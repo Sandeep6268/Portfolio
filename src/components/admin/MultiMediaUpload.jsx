@@ -1,72 +1,22 @@
 "use client";
-import React, { useRef, useState } from "react";
-import toast from "react-hot-toast";
+import React, { useState } from "react";
 import { api } from "./api";
-import { FiArrowLeft, FiArrowRight, FiTrash2, FiUploadCloud } from "react-icons/fi";
+import MediaPickerModal from "./MediaPickerModal";
+import { FiArrowLeft, FiArrowRight, FiTrash2, FiPlus } from "react-icons/fi";
 
 /**
- * Upload & manage MULTIPLE media items (images and/or videos) for a gallery.
- * value = [{ type, url, publicId, caption }]; onChange returns the new array.
+ * Manage MULTIPLE media items (gallery). "Add media" opens the picker modal
+ * (Upload / Paste / Drag & drop / From URL). value = [{ type, url, publicId, caption, alt }].
  */
 export default function MultiMediaUpload({ label = "Gallery", value = [], onChange }) {
-  const inputRef = useRef(null);
-  const [uploading, setUploading] = useState(false);
-  const [dragOver, setDragOver] = useState(false);
+  const [open, setOpen] = useState(false);
   const items = Array.isArray(value) ? value : [];
 
-  const pick = () => inputRef.current?.click();
-
-  // shared: upload a list of File objects and append them to the gallery
-  const uploadFiles = async (files) => {
-    const valid = files.filter((f) => {
-      const m = f.type || "";
-      return m.startsWith("image/") || m.startsWith("video/");
-    });
-    if (!valid.length) {
-      if (files.length) toast.error("Only image or video files are allowed.");
-      return;
-    }
-    setUploading(true);
-    const uploaded = [];
-    let failed = 0;
-    for (const file of valid) {
-      try {
-        const res = await api.upload(file);
-        uploaded.push({ type: res.type, url: res.url, publicId: res.publicId, caption: "", alt: "", title: "" });
-      } catch (ex) {
-        failed += 1;
-      }
-    }
-    if (uploaded.length) {
-      onChange?.([...items, ...uploaded]);
-      toast.success(`${uploaded.length} item${uploaded.length > 1 ? "s" : ""} added to gallery`);
-    }
-    if (failed) toast.error(`${failed} upload${failed > 1 ? "s" : ""} failed`);
-    setUploading(false);
-    if (inputRef.current) inputRef.current.value = "";
-  };
-
-  const onFiles = (e) => uploadFiles(Array.from(e.target.files || []));
-
-  // paste copied image(s) from the clipboard
-  const onPaste = (e) => {
-    const files = [];
-    for (const it of e.clipboardData?.items || []) {
-      if (it.kind === "file") {
-        const f = it.getAsFile();
-        if (f) files.push(f);
-      }
-    }
-    if (files.length) {
-      e.preventDefault();
-      uploadFiles(files);
-    }
-  };
-
-  const onDrop = (e) => {
-    e.preventDefault();
-    setDragOver(false);
-    uploadFiles(Array.from(e.dataTransfer?.files || []));
+  const onPick = (picked) => {
+    const added = picked.map((m) => ({
+      type: m.type, url: m.url, publicId: m.publicId, caption: "", alt: "", title: "",
+    }));
+    if (added.length) onChange?.([...items, ...added]);
   };
 
   const update = (i, patch) =>
@@ -93,14 +43,7 @@ export default function MultiMediaUpload({ label = "Gallery", value = [], onChan
   return (
     <div className="a-field">
       {label && <label>{label}</label>}
-      <div
-        className={`gallery-uploader ${dragOver ? "dragover" : ""}`}
-        tabIndex={0}
-        onPaste={onPaste}
-        onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
-        onDragLeave={() => setDragOver(false)}
-        onDrop={onDrop}
-      >
+      <div className="gallery-uploader">
         {items.map((it, i) => (
           <div className="gallery-tile" key={it.publicId || it.url || i}>
             {it.type === "video" ? (
@@ -128,20 +71,14 @@ export default function MultiMediaUpload({ label = "Gallery", value = [], onChan
             />
           </div>
         ))}
-        <button type="button" className="gallery-add" onClick={pick} disabled={uploading}>
-          <FiUploadCloud size={22} />
-          <span>{uploading ? "Uploading…" : "Add media"}</span>
+        <button type="button" className="gallery-add" onClick={() => setOpen(true)}>
+          <FiPlus size={22} />
+          <span>Add media</span>
         </button>
       </div>
-      <input
-        ref={inputRef}
-        type="file"
-        accept="image/*,video/*"
-        multiple
-        onChange={onFiles}
-        style={{ display: "none" }}
-      />
-      <div className="hint">Add multiple images / videos — click, drag &amp; drop, or click here and paste (Ctrl/Cmd+V) a copied image. Reorder with the arrows. Images → WebP.</div>
+      <div className="hint">Add multiple images / videos — upload, paste, drag &amp; drop, or by URL. Reorder with the arrows. Images → WebP.</div>
+
+      <MediaPickerModal open={open} onClose={() => setOpen(false)} onPick={onPick} multiple accept="image/*,video/*" />
     </div>
   );
 }

@@ -1,71 +1,20 @@
 "use client";
-import React, { useRef, useState } from "react";
-import toast from "react-hot-toast";
+import React, { useState } from "react";
 import { api } from "./api";
+import MediaPickerModal from "./MediaPickerModal";
 
 /**
- * Upload an image OR video. Uploaded media is optimized server-side
- * (images delivered as WebP, videos with auto quality/codec).
- * value = { type, url, publicId, alt?, title? }; onChange receives the new media object.
- * Pass seo={false} to hide the optional alt/title inputs.
- *
- * Supports: click-to-pick, drag & drop, and PASTE (Ctrl/Cmd+V a copied image).
+ * Single media field. Click "Upload / Replace" to open the media picker modal
+ * (Upload file / Paste / Drag & drop / From URL). Optimized server-side.
+ * value = { type, url, publicId, alt?, title? }. Pass seo={false} to hide alt/title.
  */
 export default function MediaUpload({ label = "Media", value = {}, onChange, accept = "image/*,video/*", seo = true }) {
-  const inputRef = useRef(null);
-  const [uploading, setUploading] = useState(false);
-  const [err, setErr] = useState("");
-  const [dragOver, setDragOver] = useState(false);
+  const [open, setOpen] = useState(false);
   const v = value || {};
 
-  const pick = () => inputRef.current?.click();
-
-  const uploadFile = async (file) => {
-    if (!file) return;
-    const mime = file.type || "";
-    if (!mime.startsWith("image/") && !mime.startsWith("video/")) {
-      toast.error("Only image or video files are allowed.");
-      return;
-    }
-    setErr("");
-    setUploading(true);
-    try {
-      const res = await api.upload(file);
-      // keep any existing alt/title when replacing
-      onChange?.({ type: res.type, url: res.url, publicId: res.publicId, alt: v.alt || "", title: v.title || "" });
-      toast.success(`${res.type === "video" ? "Video" : "Image"} uploaded & optimized`);
-    } catch (ex) {
-      setErr(ex.message);
-      toast.error(ex.message || "Upload failed");
-    } finally {
-      setUploading(false);
-      if (inputRef.current) inputRef.current.value = "";
-    }
-  };
-
-  const onFile = (e) => uploadFile(e.target.files?.[0]);
-
-  // paste a copied image/screenshot from the clipboard
-  const onPaste = (e) => {
-    const items = e.clipboardData?.items || [];
-    for (const it of items) {
-      if (it.kind === "file") {
-        const file = it.getAsFile();
-        if (file) {
-          e.preventDefault();
-          uploadFile(file);
-          return;
-        }
-      }
-    }
-  };
-
-  // drag & drop
-  const onDrop = (e) => {
-    e.preventDefault();
-    setDragOver(false);
-    const file = e.dataTransfer?.files?.[0];
-    if (file) uploadFile(file);
+  const onPick = (items) => {
+    const m = items?.[0];
+    if (m) onChange?.({ type: m.type, url: m.url, publicId: m.publicId, alt: v.alt || "", title: v.title || "" });
   };
 
   const clear = async () => {
@@ -80,14 +29,7 @@ export default function MediaUpload({ label = "Media", value = {}, onChange, acc
   return (
     <div className="a-field">
       {label && <label>{label}</label>}
-      <div
-        className={`media-upload ${dragOver ? "dragover" : ""}`}
-        tabIndex={0}
-        onPaste={onPaste}
-        onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
-        onDragLeave={() => setDragOver(false)}
-        onDrop={onDrop}
-      >
+      <div className="media-upload">
         {v.url ? (
           v.type === "video" ? (
             <video className="preview" src={v.url} muted loop autoPlay playsInline />
@@ -99,22 +41,15 @@ export default function MediaUpload({ label = "Media", value = {}, onChange, acc
           <div className="preview-empty">No media</div>
         )}
         <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-          <button type="button" className="a-btn small" onClick={pick} disabled={uploading}>
-            {uploading ? "Uploading…" : v.url ? "Replace" : "Upload image / video"}
+          <button type="button" className="a-btn small" onClick={() => setOpen(true)}>
+            {v.url ? "Replace" : "Add image / video"}
           </button>
           {v.url && (
-            <button type="button" className="a-btn small danger" onClick={clear} disabled={uploading}>
+            <button type="button" className="a-btn small danger" onClick={clear}>
               Remove
             </button>
           )}
         </div>
-        <input
-          ref={inputRef}
-          type="file"
-          accept={accept}
-          onChange={onFile}
-          style={{ display: "none" }}
-        />
       </div>
 
       {seo && v.url && (
@@ -134,8 +69,9 @@ export default function MediaUpload({ label = "Media", value = {}, onChange, acc
         </div>
       )}
 
-      {err && <div className="hint" style={{ color: "var(--a-danger)" }}>{err}</div>}
-      <div className="hint">Click, drag &amp; drop, or click here and paste (Ctrl/Cmd+V) a copied image. Images → WebP; videos optimized.</div>
+      <div className="hint">Upload, paste, drag &amp; drop, or add by URL. Images → WebP; videos optimized.</div>
+
+      <MediaPickerModal open={open} onClose={() => setOpen(false)} onPick={onPick} multiple={false} accept={accept} />
     </div>
   );
 }
